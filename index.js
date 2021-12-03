@@ -1,8 +1,9 @@
 const { LOADIPHLPAPI } = require("dns");
+require('dotenv').config()
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-const port = 3001;
+const port = process.env.port||3000;
 http.listen(port, () => {
   console.log(`app listening on port ${port}`);
 });
@@ -30,43 +31,3 @@ io.on("connection", (socket) => {
   console.log("total users online:-",count);
 })
 
-
-////////////////////////////
-// const ioo = require("socket.io-client");
-// var sockett = ioo.connect("http://localhost:3001");
-// let users={}
-// sockett.once("connect", () => {
-//   let userId=sockett.id
-//   if (!users[userId]) users[userId] = [];
-
-//   // PUSH SOCKET ID FOR PARTICULAR USER ID
-//   users[userId].push(sockett.id);
-
-//   // USER IS ONLINE BROAD CAST TO ALL CONNECTED USERS
-//   io.sockets.emit("online", userId);
-
-// // USER IS ONLINE
-//   sockett.on("online", (userId) => {
-//       console.log(userId, "Is Online!"); // update online status
-//   });
-
-//   sockett.on('disconnect', () => {
-
-//     // REMOVE FROM SOCKET USERS
-// console.log(sockett.id);
-//     _.remove(users[userId], (u) => u === sockett.id);
-//     if (users[userId].length === 0) {
-
-//       // ISER IS OFFLINE BROAD CAST TO ALL CONNECTED USERS
-//       io.sockets.emit("offline", userId);
-//       // REMOVE OBJECT
-//       delete users[userId];
-//       // USER IS OFFLINE
-//     }
-//   socket.on("offline", (userId) => {
-//     console.log(userId, "Is Offline!"); // update offline status
-// });
-//     socket.disconnect(); // DISCONNECT SOCKET
-
-//   });
-// })
